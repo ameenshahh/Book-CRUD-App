@@ -1,19 +1,21 @@
+// Import required modules
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 
+// Import custom routers
 const signupRouter = require("./routes/signupRouter");
 const signinRouter = require("./routes/signinRouter");
 const booksRouter = require("./routes/booksRouter");
 
 const app = express();
-require("dotenv").config();
+require("dotenv").config(); // Load environment variables from a .env file
 
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 4000; // Set the server port, defaulting to 4000 if not provided
 
-app.use(bodyParser.json());
-
+app.use(bodyParser.json()); // Parse JSON request bodies
+ 
 // Connect to MongoDB using Mongoose
 mongoose.connect(process.env.DATABASE_URL, {
   useNewUrlParser: true,
@@ -43,3 +45,5 @@ app.use(cookieParser());
 app.use('/book',booksRouter)
 app.use('/signup',signupRouter)
 app.use('/signin',signinRouter)
+
+module.exports = app;
